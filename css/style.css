@@ -169,6 +169,22 @@ nav a {
   flex-direction: column;
   gap: 20px;
 }
+.cup-btn-math {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  h3 {
+    background: yellow;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+  h4 {
+    background: yellow;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+}
 .cup-btn button {
   background: rgba(189, 29, 29, 1);
   color: rgba(255, 255, 255, 1);
@@ -232,8 +248,4 @@ nav a {
 } */
 .img1 {
   max-width: 180px;
-}
-.cupt-btn-math {
-  display: flex;
-  gap: 20px;
 }

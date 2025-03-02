@@ -1,9 +1,11 @@
 let my_men = document.querySelector(".my-men");
-console.log(my_men);
 readorder();
 function readorder() {
+  my_men.innerHTML = "";
   let data = JSON.parse(localStorage.getItem("order"));
-  data.forEach((item, indx) => {
+  let totalPrice = data.reduce((acc, item) => acc + +item.price, 0);
+  data.forEach((item, idx) => {
+    let count = 1;
     let men = document.createElement("div");
     men.classList.add("men");
     let cup = document.createElement("div");
@@ -28,7 +30,7 @@ function readorder() {
     let h3 = document.createElement("h3");
     h3.innerText = "-";
     let p = document.createElement("p");
-    p.innerText = "0";
+    p.innerText = `${count}x`;
     let h4 = document.createElement("h4");
     h4.innerText = "+";
     men.append(cup);
@@ -38,15 +40,37 @@ function readorder() {
     cup_btn.append(button, cup_btn_math);
     cup_btn_math.append(h3, p, h4);
     my_men.append(men);
+
+    h4.addEventListener("click", () => {
+      count++;
+      p.innerText = `${count}x`;
+      p_price.innerText = `$${item.foodPrice * count}`;
+      totalPrice.innerText = `total: $${(totalPrice += +item.foodPrice)}`;
+    });
+    h3.addEventListener("click", () => {
+      if (count === 1) {
+      } else {
+        count--;
+        p.innerText = `${count}x`;
+        p_price.innerText = `$${item.foodPrice * count}`;
+        totalPrice.innerText = `Total: $${(totalPrice -= +item.foodPrice)}`;
+      }
+    });
     button.addEventListener("click", () => {
-      deletefood(indx);
+      deleted(item.id);
     });
   });
 }
-function deletefood(id) {
+function deleted(id) {
   let data = JSON.parse(localStorage.getItem("order")) || [];
-  data = data.filter((item, index) => item.index !== id);
+  data = data.filter((item) => item.id !== id);
   localStorage.setItem("order", JSON.stringify(data));
-  men.style.display = "none";
   readorder();
 }
+
+// function deletefood(id) {
+//   let newdata = JSON.parse(localStorage.getItem("order")) || [];
+//   newdata = newdata.filter((item, index) => item.index !== id);
+//   localStorage.setItem("order", JSON.stringify(newdata));
+//   men.style.display = "none";
+//   readorder();

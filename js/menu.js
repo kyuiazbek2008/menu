@@ -24,9 +24,14 @@ function readfood() {
     list.append(section_img);
 
     button.addEventListener("click", () => {
-      let data = JSON.parse(localStorage.getItem("order")) || [];
-      data.push(item);
-      localStorage.setItem("order", JSON.stringify(data));
+      let newdata = JSON.parse(localStorage.getItem("order")) || [];
+      let findOrderItem = data.find((el, index) => indx === index);
+      if (newdata.some((someItem) => someItem.id === item.id)) {
+        alert("false");
+      } else {
+        newdata.push(findOrderItem);
+        localStorage.setItem("order", JSON.stringify(newdata));
+      }
     });
   });
 }
